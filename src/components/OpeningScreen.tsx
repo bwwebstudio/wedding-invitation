@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { weddingConfig } from "@/config/weddingConfig";
@@ -10,6 +11,18 @@ interface Props {
 }
 
 export default function OpeningScreen({ onOpen }: Props) {
+  const [guestName, setGuestName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("guest") || params.get("name") || params.get("to");
+      if (name) {
+        setGuestName(name.trim());
+      }
+    }
+  }, []);
+
   const handleOpenClick = () => {
     SoundEffects.playCardOpenChime();
     onOpen();
@@ -34,21 +47,34 @@ export default function OpeningScreen({ onOpen }: Props) {
 
       <div className="absolute inset-0 islamic-pattern-bg opacity-25" />
 
-      {/* Main Container: REAL WEDDING CARD INVITATION */}
+      {/* Main Container */}
       <div className="relative z-10 flex flex-col items-center justify-center px-4 max-w-sm sm:max-w-md w-full my-auto">
+        
+        {/* Guest Personalized Banner */}
+        {guestName && (
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-3 px-5 py-2 rounded-full bg-white/90 backdrop-blur-md border border-wedding-gold/60 shadow-lg text-center"
+          >
+            <p className="text-xs font-semibold text-[#0F4C75] tracking-wide">
+              ✨ Respected <span className="text-[#AA7C11] font-bold">{guestName}</span>, You are Warmly Invited! ✨
+            </p>
+          </motion.div>
+        )}
+
         {/* Real Physical Card Representation */}
         <motion.div
           initial={{ opacity: 0, scale: 0.88, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full aspect-[1/1.45] max-h-[70vh] rounded-2xl overflow-hidden shadow-2xl p-2.5 royal-border-gold bg-[#FAF4E8]"
+          className="relative w-full aspect-[1/1.45] max-h-[66vh] rounded-2xl overflow-hidden shadow-2xl p-2.5 royal-border-gold bg-[#FAF4E8]"
           style={{
             boxShadow: "0 25px 60px -15px rgba(15,76,117,0.4), 0 0 35px rgba(212,175,55,0.3)",
           }}
         >
           {/* Card Frame Inner Shadow & Border */}
           <div className="relative w-full h-full rounded-xl overflow-hidden border border-wedding-gold/40">
-            {/* Real Wedding Card Image (Reference Image 1) */}
             <Image
               src={weddingConfig.cardImage}
               alt="Ali Akbar & Fatema Wedding Invitation Card"
@@ -82,11 +108,11 @@ export default function OpeningScreen({ onOpen }: Props) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="mt-6 text-center"
+          className="mt-5 text-center"
         >
           <button
             onClick={handleOpenClick}
-            className="btn-royal shadow-xl flex items-center justify-center gap-2 mx-auto"
+            className="btn-royal shadow-xl flex items-center justify-center gap-2 mx-auto animate-pulse"
             aria-label="Tap to open the wedding invitation"
           >
             <span>✨ Tap to Open Invitation ✨</span>

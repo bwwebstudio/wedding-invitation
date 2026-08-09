@@ -17,6 +17,7 @@ import VenueSection from "@/components/VenueSection";
 import MusicButton from "@/components/MusicButton";
 import FloatingDecorations from "@/components/FloatingDecorations";
 import ShareButton from "@/components/ShareButton";
+import GuestInviteModal from "@/components/GuestInviteModal";
 import Footer from "@/components/Footer";
 
 type AppState = "loading" | "opening" | "animating" | "main";
