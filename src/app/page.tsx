@@ -9,7 +9,6 @@ import HeroSection from "@/components/HeroSection";
 import IslamicGreeting from "@/components/IslamicGreeting";
 import DecorativeDivider from "@/components/DecorativeDivider";
 import ScratchReveal from "@/components/ScratchReveal";
-import CoupleSection from "@/components/CoupleSection";
 import WeddingDate from "@/components/WeddingDate";
 import Countdown from "@/components/Countdown";
 import EventsTimeline from "@/components/EventsTimeline";
@@ -82,9 +81,6 @@ export default function Home() {
 
           {/* Scratch to Reveal */}
           <ScratchReveal />
-
-          {/* Couple Section */}
-          <CoupleSection />
 
           {/* Decorative Transition */}
           <DecorativeDivider variant="gold" />

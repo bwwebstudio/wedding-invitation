@@ -4,6 +4,7 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { weddingConfig } from "@/config/weddingConfig";
 import Image from "next/image";
+import { SoundEffects } from "@/utils/audio";
 
 export default function ScratchReveal() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -36,24 +37,24 @@ export default function ScratchReveal() {
 
     ctx.scale(dpr, dpr);
 
-    // Render Luxury Sky/Gold Metallic Foil Surface
+    // Render Sky & Gold Foil Metallic Scratch Surface
     const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-    gradient.addColorStop(0, "#7ec8e3");
-    gradient.addColorStop(0.35, "#5BA3C9");
-    gradient.addColorStop(0.7, "#D4AF37");
+    gradient.addColorStop(0, "#87CEEB");
+    gradient.addColorStop(0.3, "#5BA3C9");
+    gradient.addColorStop(0.65, "#D4AF37");
     gradient.addColorStop(1, "#3A8EC1");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, rect.width, rect.height);
 
-    // Geometric Star Pattern Foil Overlay
+    // Star Overlay
     ctx.globalAlpha = 0.12;
     ctx.strokeStyle = "#FFFFFF";
     ctx.lineWidth = 1;
-    const size = 35;
+    const size = 32;
     for (let x = 0; x < rect.width; x += size) {
       for (let y = 0; y < rect.height; y += size) {
         ctx.beginPath();
-        ctx.arc(x + size / 2, y + size / 2, size / 3, 0, Math.PI * 2);
+        ctx.arc(x + size / 2, y + size / 2, size / 3.5, 0, Math.PI * 2);
         ctx.stroke();
       }
     }
@@ -155,6 +156,8 @@ export default function ScratchReveal() {
     if (progress >= 0.55 && !isRevealed) {
       setIsRevealed(true);
       setShowCelebration(true);
+      SoundEffects.playScratchCompleteChime();
+
       const canvas = canvasRef.current;
       if (canvas) {
         canvas.style.transition = "opacity 0.8s ease";
@@ -216,6 +219,9 @@ export default function ScratchReveal() {
           <h2 className="font-script text-5xl md:text-6xl text-gold-metallic">
             Scratch to Reveal
           </h2>
+          <p className="text-xs uppercase tracking-[3px] text-[#1A2B3C]/60 mt-1">
+            Reveal the Couple Photo
+          </p>
         </motion.div>
 
         {/* Scratch Card Frame */}
@@ -241,7 +247,7 @@ export default function ScratchReveal() {
               sizes="(max-width: 768px) 90vw, 360px"
               priority
             />
-            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
           </div>
 
           {/* HTML5 Canvas Scratch Surface */}
@@ -282,7 +288,7 @@ export default function ScratchReveal() {
         <AnimatePresence>
           {showCelebration && (
             <div className="fixed inset-0 pointer-events-none z-50">
-              {[...Array(30)].map((_, i) => (
+              {[...Array(35)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute rounded-full"
@@ -298,7 +304,7 @@ export default function ScratchReveal() {
                   animate={{
                     opacity: [0, 1, 0],
                     scale: [0, 1.8, 0],
-                    y: [0, -(Math.random() * 120 + 60)],
+                    y: [0, -(Math.random() * 140 + 60)],
                     x: [(Math.random() - 0.5) * 80],
                   }}
                   transition={{
@@ -324,8 +330,13 @@ export default function ScratchReveal() {
               <h3 className="font-script text-5xl text-gold-metallic mb-1">
                 {weddingConfig.groomName} ❤️ {weddingConfig.brideName}
               </h3>
-              <p className="font-urdu text-lg text-[#0F4C75] mt-1">
-                نکاح مبارک
+              <div className="flex items-center justify-center gap-3 font-urdu text-base text-[#0F4C75] mt-2">
+                <span>{weddingConfig.groomNameUrdu}</span>
+                <span className="text-red-400 font-sans">♥</span>
+                <span>{weddingConfig.brideNameUrdu}</span>
+              </div>
+              <p className="text-xs uppercase tracking-[4px] text-[#AA7C11] font-semibold mt-3">
+                Nikah Mubarak
               </p>
             </motion.div>
           )}
