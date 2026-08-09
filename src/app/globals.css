@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-sky: #87CEEB;
+  --color-sky-light: #C5E9F6;
+  --color-sky-dark: #3A8EC1;
+  --color-ocean: #2076AB;
+  --color-ocean-deep: #0F4C75;
+  --color-ivory: #FCFAF5;
+  --color-cream: #FAF4E8;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F3E5AB;
+  --color-gold-deep: #AA7C11;
+  --color-pearl: #F4EBE1;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Playfair Display', Georgia, serif;
+  background: var(--color-ivory);
+  color: #1A2B3C;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Typography & Fonts ─── */
+.font-script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-arabic {
+  font-family: 'Amiri', serif;
+}
+
+.font-urdu {
+  font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
+  direction: rtl;
+  line-height: 2.5;
+}
+
+/* ─── Metallic Gold Text ─── */
+.text-gold-metallic {
+  background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.text-blue-royal {
+  background: linear-gradient(135deg, #1B6B99 0%, #2E8BC0 50%, #144D73 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Luxury Card Shimmer & Frames ─── */
+.royal-card {
+  background: rgba(255, 253, 248, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 
+    0 10px 40px -10px rgba(15, 76, 117, 0.12),
+    0 0 20px 0 rgba(212, 175, 55, 0.15),
+    inset 0 0 15px rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+}
+
+.royal-border-gold {
+  position: relative;
+}
+
+.royal-border-gold::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px stroke rgba(212, 175, 55, 0.3);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+/* ─── Islamic Pattern Overlay ─── */
+.islamic-pattern-bg {
+  position: relative;
+}
+
+.islamic-pattern-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.07'%3E%3Cpath d='M40 0L80 40L40 80L0 40z M40 12L68 40L40 68L12 40z M40 24L56 40L40 56L24 40z'/%3E%3Cpath d='M0 0h80v80H0z' fill='none' stroke='%23D4AF37' stroke-opacity='0.04' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Luxury Glow Buttons ─── */
+.btn-royal {
+  position: relative;
+  padding: 16px 44px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(212,175,55,0.15) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.7);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  color: #AA7C11;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.btn-royal::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg);
+  animation: shine 4s infinite;
+}
+
+.btn-royal:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.8);
+  border-color: #D4AF37;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  20%, 100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* ─── Scratch Canvas ─── */
+.scratch-canvas {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FCFAF5;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D4AF37, #2E8BC0);
+  border-radius: 10px;
+}
